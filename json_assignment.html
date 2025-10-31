@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .content {
+        width: 80%;
+        float: left;
+      }
+
+      div {
+        padding: 10px;
+      }
+    </style>
+    <script>
+        window.onload = function () {
+            let btnStu = document.getElementById("btnStu");
+            let btnAdd = document.getElementById("btnAdd");
+            btnStu.addEventListener("click", getStudents);
+            btnAdd.addEventListener("click", postData);
+        }
+
+        function getStudents() {
+            let contents = document.getElementById("contents");
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = () => {
+            if (xhr.status === 200) {
+                const res = JSON.parse(xhr.response);
+                contents.innerHTML = makeList(res);
+            } else {
+                console.log(xhr.status, xhr.statusText);
+                }
+            };
+
+            xhr.open("GET", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data");
+            xhr.setRequestHeader("content-type","application/json");
+            xhr.send();
+        }
+
+        function makeList(data) {
+            let str = "<ul>";
+
+                for (let key in data) {
+                    str += "<li> " + data[key].name + " (" + data[key].age + ")</li>";
+                    str +="<button onclick=\"updateData('" + data[key].id + "')\"> modify </button>";
+                    str +="<button onclick=\"deleteData('" + data[key].id + "')\"> delete </button>";
+                }
+            str += "</ul>";
+            return str;
+        }
+
+        function postData() {
+            let contents = document.getElementById("contents");
+            let name = document.getElementById("name");
+            let age = document.getElementById("age");
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = () => {
+                if (xhr.status === 201) {
+                    name.value = "";
+                    age.value = "";
+                    const res = JSON.parse(xhr.response);
+                    console.log(res);
+                    getStudents() ;
+                } else {
+                    console.log(xhr.status, xhr.statusText);
+                }
+            }
+
+            xhr.open("POST", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data");
+            xhr.setRequestHeader("content-type", "application/json; charset=UTF-8")
+            const data = { name: name.value, age: age.value };
+            xhr.send(JSON.stringify(data));
+        }
+
+        function updateData(id) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("PUT", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data/" + id);
+            xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+            const data = { name: "Sally", age: "10", email: "sally@gmail.com", phone: "01012341234" };
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const res = JSON.parse(xhr.response);
+                    console.log(res);
+                    getStudents();
+                } else {
+                    console.log(xhr.status, xhr.statusText);
+                }
+            }
+        }
+
+        function deleteData(id) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("DELETE", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data/" + id);
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const res = JSON.parse(xhr.response);
+                    console.log(res);
+                    getStudents();
+                } else {
+                    console.log(xhr.status, xhr.statusText);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+  </head>
+
+  <body>
+    <button id="btnStu">Bring student data</button>
+    <div>
+      <input type="text" id="name" size="5" placeholder="name" />
+      <input type="text" id="age" size="5" placeholder="age" />
+      <button id="btnAdd" type="button">Add student data</button>
+    </div>
+    <div
+      id="contents"
+      style="height: 200px; background-color: lightgoldenrodyellow"
+    ></div>
+  </body>
+</html>
