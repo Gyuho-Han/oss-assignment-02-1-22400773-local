@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="my.css">
+    <title>addPage</title>
+    <script>
+        function validateForm() {
+            const ageInput = document.querySelector('input[name="age"]');
+            const emailInput = document.querySelector('input[name="email"]');
+            const age = ageInput.value;
+            const email = emailInput.value;
+
+            // age validation check
+            if (age && parseInt(age, 10) <= 0) {
+                alert("age should bt bigger than 0.");
+                ageInput.focus();
+                return false;
+            }
+
+            // email validation check
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email && !emailPattern.test(email)) {
+                alert("Enter valid email address.");
+                emailInput.focus();
+                return false;
+            }
+
+            alert("Item added");
+            return true;
+        }
+
+        function calcelClicked(){
+            location.href = "./index.html";
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <form action="..." method="get" onsubmit="return validateForm()">
+            <fieldset>
+                <legend>Add Friend</legend>
+                <div>Name: <input type="text" name="name" required/></div>
+                <div>Relationship: <input type="text" name="relationship"/></div>
+                <div>Address: <input type="text" name="address"/></div>
+                <div>Phone Number: <input type="phone" name="phone" required/></div>
+                <div>Email: <input type="email" name="email"/></div>
+                <div>Age: <input type="number" name="age" required/></div>
+                <div>DoB: <input type="date" name="Birthday" required/> </div>
+                
+                <div>
+                    <br>
+                    <div>Gender</div>
+                    <input type="radio" id="male" name="gender" value="male" required>
+                    <label for="male">Male</label><br>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label><br><br>
+                </div>
+            </fieldset>
+
+            <br>
+            <div class="BtnContainer">
+                <button class="Btn" type="submit">Submit</button>
+                <button class="Btn" type="button" onclick="calcelClicked()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

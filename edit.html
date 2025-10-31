@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="my.css">
+    <title>Document</title>
+</head>
+<script>
+    function validateForm() {
+        const ageInput = document.querySelector('input[name="age"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const age = ageInput.value;
+        const email = emailInput.value;
+
+        // 나이 유효성 검사: 0보다 큰 숫자인지 확인
+        if (age && parseInt(age, 10) <= 0) {
+            alert("나이는 0보다 커야 합니다.");
+            ageInput.focus();
+            return false;
+        }
+
+        // 이메일 유효성 검사: 기본 형식 확인
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email && !emailPattern.test(email)) {
+            alert("유효한 이메일 주소를 입력해주세요.");
+            emailInput.focus();
+            return false;
+        }
+
+        return confirm("Do you want to edit this item?");
+    }
+
+    function cancelClicked(){
+        location.href = "./index.html";
+    }
+</script>
+<body>
+    <form action="..." method="get" onsubmit="return validateForm()">
+        <fieldset>
+            <legend>Edit Infomation</legend>
+            <div>Name: <input type="text" name="name" required/></div>
+            <div>Relationship: <input type="text" name="relationship"/></div>
+            <div>Address: <input type="text" name="address"/></div>
+            <div>Phone Number: <input type="phone" name="phone" required/></div>
+            <div>Email: <input type="email" name="email"/></div>
+            <div>Age: <input type="number" name="age" required/></div>
+            <div>DoB: <input type="date" name="Birthday" required/> </div>
+            
+            <div>
+                <br>
+                <div>Gender</div>
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label><br><br>
+            </div>
+        </fieldset>
+
+        <br>
+        <div class="BtnContainer">
+            <button class="Btn" type="submit">Submit</button>
+            <button class="Btn" type="button" onclick="cancelClicked()">Cancel</button>
+        </div>
+    </form>
+  
+</body>
+</html>

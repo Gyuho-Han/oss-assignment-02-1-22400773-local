@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="my.css">
+  <title>mainPage</title>
+  <script>
+    function move2AddPage(){
+      location.href = "./add.html";
+    }
+    function nameClicked(){
+      location.href = "./view.html";
+    }
+  </script>
+
+</head>
+<body>
+  <h2>Friends List</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Relationship</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td class="title" onclick="nameClicked()">Gyuho Han</td>
+            <td>Friend</td>
+            <td>Handong Global University Bethel Dorm</td>
+            <td>010-1234-1234</td>
+            <td>gyuho@handong.ac.kr</td>
+            <td>22</td>
+            <td>Male</td>
+            </tr>
+            <tr>
+            <td>2</td>
+            <td class="title" onclick="nameClicked()">Minji Kim</td>
+            <td>Classmate</td>
+            <td>Seoul, Korea</td>
+            <td>010-5678-4321</td>
+            <td>minji@naver.com</td>
+            <td>21</td>
+            <td>Female</td>
+            </tr>
+            <tr>
+            <td>3</td>
+            <td class="title" onclick="nameClicked()">David Lee</td>
+            <td>Colleague</td>
+            <td>Busan, Korea</td>
+            <td>010-2222-3333</td>
+            <td>david@company.com</td>
+            <td>28</td>
+            <td>Male</td>
+            </tr>
+            <tr>
+            <td>4</td>
+            <td class="title" onclick="nameClicked()">Sujin Park</td>
+            <td>Friend</td>
+            <td>Daegu, Korea</td>
+            <td>010-4444-5555</td>
+            <td>sujin@handong.ac.kr</td>
+            <td>21</td>
+            <td>Female</td>
+            </tr>
+            <tr>
+            <td>5</td>
+            <td class="title" onclick="nameClicked()">Michael Choi</td>
+            <td>Team Member</td>
+            <td>Incheon, Korea</td>
+            <td>010-6666-7777</td>
+            <td>michael@company.com</td>
+            <td>25</td>
+            <td>Male</td>
+            </tr>
+            <tr>
+            <td>6</td>
+            <td class="title" onclick="nameClicked()">Eunji Kang</td>
+            <td>Senior</td>
+            <td>Ulsan, Korea</td>
+            <td>010-8888-9999</td>
+            <td>eunji@gmail.com</td>
+            <td>24</td>
+            <td>Female</td>
+            </tr>
+            <tr>
+            <td>7</td>
+            <td class="title" onclick="nameClicked()">John Smith</td>
+            <td>Professor</td>
+            <td>Handong Global University</td>
+            <td>010-1212-3434</td>
+            <td>johnsmith@hgu.edu</td>
+            <td>45</td>
+            <td>Male</td>
+            </tr>
+            <tr>
+            <td>8</td>
+            <td class="title" onclick="nameClicked()">Hana Lee</td>
+            <td>Roommate</td>
+            <td>Pohang, Korea</td>
+            <td>010-5656-7878</td>
+            <td>hana@handong.ac.kr</td>
+            <td>20</td>
+            <td>Female</td>
+            </tr>
+            <tr>
+            <td>9</td>
+            <td class="title" onclick="nameClicked()">Chris Brown</td>
+            <td>Mentor</td>
+            <td>New York, USA</td>
+            <td>010-9090-1010</td>
+            <td>chris@nyu.edu</td>
+            <td>35</td>
+            <td>Male</td>
+            </tr>
+            <tr>
+            <td>10</td>
+            <td class="title" onclick="nameClicked()">Yuna Seo</td>
+            <td>Friend</td>
+            <td>Gwangju, Korea</td>
+            <td>010-4545-6767</td>
+            <td>yuna@kakao.com</td>
+            <td>23</td>
+            <td>Female</td>
+            </tr>
+            <tr>
+            <td>11</td>
+            <td class="title" onclick="nameClicked()">Peter Jung</td>
+            <td>Club Member</td>
+            <td>Jeju, Korea</td>
+            <td>010-7878-9898</td>
+            <td>peter@jejuisland.com</td>
+            <td>26</td>
+            <td>Male</td>
+            </tr>
+    </tbody>
+  </table>
+
+  <button class="btn" onclick="move2AddPage()">Add</button>
+</body>
+</html>

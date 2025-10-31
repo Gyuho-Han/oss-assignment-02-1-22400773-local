@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="my.css">
+  <title>Document</title>
+
+</head>
+<script>
+  function editBtnClicked(){
+    location.href = "./edit.html";
+  }
+
+  function delBtnClicked(){
+    confirm("Do you want to delete this item?");
+  }
+
+  function listBtnClicked(){
+    location.href = "./index.html";
+  }
+</script>
+<body>
+  <div class="card">
+    <div>Gyuho Han</div>
+    <div>Friend</div>
+    <div>Handong Global University Bethel Dorm</div>
+    <div>010-1234-1234</div>
+    <div>gyuho@handong.ac.kr</div>
+    <div>22</div>
+    <div>Male</div>
+  </div>
+
+  <div class="btn-group">
+    <button onclick="editBtnClicked()">Edit</button>
+    <button onclick="delBtnClicked()">Delete</button>
+    <button onclick="listBtnClicked()">List</button>
+  </div>
+</body>
+</html>

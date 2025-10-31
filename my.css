@@ -1,0 +1,179 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+/* Form styling */
+form {
+    width: 50%;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #0077cc;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="phone"],
+input[type="email"],
+input[type="number"],
+input[type="date"] {
+    width: calc(100% - 10px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Button container */
+.BtnContainer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* General button styling */
+.Btn, button {
+    padding: 10px 18px;
+    margin: 0 6px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.2s;
+    border: none;
+    color: white;
+}
+
+.Btn[type="submit"], .btn-group button:nth-child(1) {
+    background-color: #2fb975;
+}
+
+.Btn[type="submit"]:hover, .btn-group button:nth-child(1):hover {
+    background-color: #23925c;
+}
+
+.Btn[type="button"], .btn-group button:nth-child(2) {
+    background-color: #e74c3c;
+}
+
+.Btn[type="button"]:hover, .btn-group button:nth-child(2):hover {
+    background-color: #c0392b;
+}
+
+.btn-group button:nth-child(3) {
+    background-color: #3498db;
+}
+
+.btn-group button:nth-child(3):hover {
+    background-color: #217dbb;
+}
+
+
+/* Table styling for index.html */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.title {
+    cursor: pointer;
+    font-weight: bold;
+    color: #0077cc;
+}
+
+.title:hover {
+    text-decoration: underline;
+}
+
+/* Card styling for view.html */
+.card {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: auto;
+}
+
+.card div {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.card div:first-child {
+    font-weight: bold;
+    font-size: 20px;
+    color: #0077cc;
+    margin-bottom: 12px;
+}
+
+.btn-group {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Add button on index page */
+.btn {
+    margin-top: 15px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #0077cc;
+    color: white;
+}
+
+.btn:hover {
+    background-color: #005fa3;
+}
+
+
+/* Responsive styles */
+@media screen and (max-width: 800px) {
+    form {
+        width: 90%;
+    }
+
+    th {
+        /* Keep some distinction, but maybe not blue */
+        background-color: #e0e0e0;
+        color: #333;
+    }
+
+    .Btn, button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
