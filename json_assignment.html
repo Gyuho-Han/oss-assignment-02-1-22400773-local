@@ -15,100 +15,157 @@
       }
     </style>
     <script>
-        window.onload = function () {
-            let btnStu = document.getElementById("btnStu");
-            let btnAdd = document.getElementById("btnAdd");
-            btnStu.addEventListener("click", getStudents);
-            btnAdd.addEventListener("click", postData);
+      window.onload = function () {
+        let btnStu = document.getElementById("btnStu");
+        let btnAdd = document.getElementById("btnAdd");
+        btnStu.addEventListener("click", getStudents);
+        btnAdd.addEventListener("click", postData);
+      };
+
+      function getStudents() {
+        let contents = document.getElementById("contents");
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            const res = JSON.parse(xhr.response);
+            contents.innerHTML = makeList(res);
+          } else {
+            console.log(xhr.status, xhr.statusText);
+          }
+        };
+
+        xhr.open(
+          "GET",
+          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students"
+        );
+        xhr.send();
+      }
+
+      function makeList(data) {
+        let str = "<ul>";
+
+        for (let key in data) {
+          const stu = data[key];
+          const email = stu.email ? stu.email : "-";
+          const phone = stu.phone ? stu.phone : "-";
+          const sex = stu.sex ? stu.sex : "-";
+
+          str += `<li>
+              <b>${stu.name}</b> (${stu.age}) 
+              | email: ${email} 
+              | phone: ${phone} 
+              | sex: ${sex}
+            </li>`;
+          str += `<button onclick="updateData('${stu.id}')">modify</button> `;
+          str += `<button onclick="deleteData('${stu.id}')">delete</button>`;
         }
+        str += "</ul>";
+        return str;
+      }
 
-        function getStudents() {
-            let contents = document.getElementById("contents");
-            const xhr = new XMLHttpRequest();
+      function postData() {
+        let name = document.getElementById("name");
+        let age = document.getElementById("age");
+        let email = document.getElementById("email");
+        let phone = document.getElementById("phone");
+        let sex = document.getElementById("sex");
 
-            xhr.onload = () => {
-            if (xhr.status === 200) {
-                const res = JSON.parse(xhr.response);
-                contents.innerHTML = makeList(res);
-            } else {
-                console.log(xhr.status, xhr.statusText);
-                }
-            };
+        const xhr = new XMLHttpRequest();
 
-            xhr.open("GET", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data");
-            xhr.setRequestHeader("content-type","application/json");
-            xhr.send();
-        }
-
-        function makeList(data) {
-            let str = "<ul>";
-
-                for (let key in data) {
-                    str += "<li> " + data[key].name + " (" + data[key].age + ")</li>";
-                    str +="<button onclick=\"updateData('" + data[key].id + "')\"> modify </button>";
-                    str +="<button onclick=\"deleteData('" + data[key].id + "')\"> delete </button>";
-                }
-            str += "</ul>";
-            return str;
-        }
-
-        function postData() {
-            let contents = document.getElementById("contents");
-            let name = document.getElementById("name");
-            let age = document.getElementById("age");
-            const xhr = new XMLHttpRequest();
-
-            xhr.onload = () => {
-                if (xhr.status === 201) {
-                    name.value = "";
-                    age.value = "";
-                    const res = JSON.parse(xhr.response);
-                    console.log(res);
-                    getStudents() ;
-                } else {
-                    console.log(xhr.status, xhr.statusText);
-                }
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            name.value = "";
+            age.value = "";
+            email.value = "";
+            phone.value = "";
+            sex.value = "";
+            try {
+              const res = JSON.parse(xhr.response);
+              console.log(res);
+            } catch (e) {
+              console.log("no json response");
             }
+            getStudents();
+          } else {
+            console.log(xhr.status, xhr.statusText);
+          }
+        };
 
-            xhr.open("POST", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data");
-            xhr.setRequestHeader("content-type", "application/json; charset=UTF-8")
-            const data = { name: name.value, age: age.value };
-            xhr.send(JSON.stringify(data));
-        }
+        xhr.open(
+          "POST",
+          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students"
+        );
+        xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
 
-        function updateData(id) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("PUT", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data/" + id);
-            xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
-            const data = { name: "Sally", age: "10", email: "sally@gmail.com", phone: "01012341234" };
-            xhr.send(JSON.stringify(data));
+        const data = {
+          name: name.value,
+          age: age.value,
+          email: email.value,
+          phone: phone.value,
+          sex: sex.value,
+        };
 
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    const res = JSON.parse(xhr.response);
-                    console.log(res);
-                    getStudents();
-                } else {
-                    console.log(xhr.status, xhr.statusText);
-                }
+        xhr.send(JSON.stringify(data));
+      }
+
+      function updateData(id) {
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          "PUT",
+          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students/" +
+            id
+        );
+        xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+
+        // 여기서는 샘플 값으로 고정
+        const data = {
+          name: "Sally",
+          age: "10",
+          email: "sally@gmail.com",
+          phone: "01012341234",
+          sex: "female",
+        };
+        xhr.send(JSON.stringify(data));
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            try {
+              const res = JSON.parse(xhr.response);
+              console.log(res);
+            } catch (e) {
+              console.log("no json response");
             }
-        }
+            getStudents();
+          } else {
+            console.log(xhr.status, xhr.statusText);
+          }
+        };
+      }
 
-        function deleteData(id) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("DELETE", "https://my-json-server.typicode.com/gyuho-han/json_server_OSS/my_data/" + id);
+      function deleteData(id) {
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          "DELETE",
+          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students/" +
+            id
+        );
 
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    const res = JSON.parse(xhr.response);
-                    console.log(res);
-                    getStudents();
-                } else {
-                    console.log(xhr.status, xhr.statusText);
-                }
-            };
-            xhr.send();
-        }
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            try {
+              const res = JSON.parse(xhr.response);
+              console.log(res);
+            } catch (e) {
+              console.log("no json response");
+            }
+            getStudents();
+          } else {
+            console.log(xhr.status, xhr.statusText);
+          }
+        };
+        xhr.send();
+      }
     </script>
   </head>
 
@@ -117,6 +174,9 @@
     <div>
       <input type="text" id="name" size="5" placeholder="name" />
       <input type="text" id="age" size="5" placeholder="age" />
+      <input type="text" id="email" size="8" placeholder="email" />
+      <input type="text" id="phone" size="8" placeholder="phone" />
+      <input type="text" id="sex" size="5" placeholder="male/female" />
       <button id="btnAdd" type="button">Add student data</button>
     </div>
     <div
