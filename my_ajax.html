@@ -141,6 +141,23 @@
         background: rgba(37, 99, 235, 0.08);
       }
 
+      #btnCancel {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        padding: 7px 0;
+        font-weight: 600;
+        color: #6b7280;
+        cursor: pointer;
+        margin-top: 6px;
+        transition: 0.12s ease;
+        display: none;
+      }
+      #btnCancel:hover {
+        background: #f3f4f6;
+      }
+
       /* list panel */
       #contents {
         padding: 18px 18px 22px;
@@ -230,11 +247,50 @@
     </style>
     <script>
       window.onload = function () {
-        let btnStu = document.getElementById("btnStu");
-        let btnAdd = document.getElementById("btnAdd");
+        const btnStu = document.getElementById("btnStu");
+        const btnAdd = document.getElementById("btnAdd");
+        const btnCancel = document.getElementById("btnCancel");
+
         btnStu.addEventListener("click", getStudents);
-        btnAdd.addEventListener("click", postData);
+        btnAdd.addEventListener("click", function () {
+          if (btnAdd.textContent === "Add") {
+            postData();
+          } else {
+            updateData();
+          }
+        });
+        btnCancel.addEventListener("click", function () {
+          resetForm();
+        });
       };
+
+      function resetForm() {
+        document.getElementById("name").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("sex").value = "";
+        document.getElementById("btnAdd").textContent = "Add";
+        document.getElementById("btnAdd").removeAttribute("data-id");
+        const title = document.getElementById("formTitle");
+        if (title) title.textContent = "Add New Student";
+        const btnCancel = document.getElementById("btnCancel");
+        if (btnCancel) btnCancel.style.display = "none";
+      }
+
+      function editData(id, name, age, email, phone, sex) {
+        document.getElementById("name").value = name;
+        document.getElementById("age").value = age;
+        document.getElementById("email").value = email;
+        document.getElementById("phone").value = phone;
+        document.getElementById("sex").value = sex;
+        document.getElementById("btnAdd").textContent = "Update";
+        document.getElementById("btnAdd").setAttribute("data-id", id);
+        const title = document.getElementById("formTitle");
+        if (title) title.textContent = "Editing...";
+        const btnCancel = document.getElementById("btnCancel");
+        if (btnCancel) btnCancel.style.display = "block";
+      }
 
       function getStudents() {
         let contents = document.getElementById("contents");
@@ -273,7 +329,7 @@
                 <small>${email} / ${phone}</small>
               </div>
               <div>
-                <button onclick="updateData('${stu.id}')">modify</button>
+                <button onclick="editData('${stu.id}', '${stu.name}', '${stu.age}', '${stu.email ? stu.email : ''}', '${stu.phone ? stu.phone : ''}', '${stu.sex ? stu.sex : ''}')">modify</button>
                 <button onclick="deleteData('${stu.id}')">delete</button>
               </div>
             </li>
@@ -294,11 +350,7 @@
 
         xhr.onload = () => {
           if (xhr.status === 201 || xhr.status === 200) {
-            name.value = "";
-            age.value = "";
-            email.value = "";
-            phone.value = "";
-            sex.value = "";
+            resetForm();
             getStudents();
           } else {
             console.log(xhr.status, xhr.statusText);
@@ -322,7 +374,14 @@
         xhr.send(JSON.stringify(data));
       }
 
-      function updateData(id) {
+      function updateData() {
+        let id = document.getElementById("btnAdd").getAttribute("data-id");
+        let name = document.getElementById("name");
+        let age = document.getElementById("age");
+        let email = document.getElementById("email");
+        let phone = document.getElementById("phone");
+        let sex = document.getElementById("sex");
+
         const xhr = new XMLHttpRequest();
         xhr.open(
           "PUT",
@@ -331,16 +390,17 @@
         xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
 
         const data = {
-          name: "Sally",
-          age: "10",
-          email: "sally@gmail.com",
-          phone: "01012341234",
-          sex: "female"
+          name: name.value,
+          age: age.value,
+          email: email.value,
+          phone: phone.value,
+          sex: sex.value
         };
         xhr.send(JSON.stringify(data));
 
         xhr.onload = () => {
           if (xhr.status === 200) {
+            resetForm();
             getStudents();
           } else {
             console.log(xhr.status, xhr.statusText);
@@ -373,11 +433,11 @@
         <div class="title-wrap">
           <h1>📚 Student Manager</h1>
         </div>
-        <button id="btnStu">Bring student data</button>
+        <button id="btnStu">Fetch student data</button>
       </header>
       <div class="body-wrap">
         <div class="form-panel">
-          <h2>Add New Student</h2>
+          <h2 id="formTitle">Add New Student</h2>
           <div class="input-row">
             <label for="name">Name</label>
             <input type="text" id="name" placeholder="name" />
@@ -399,6 +459,7 @@
             <input type="text" id="sex" placeholder="male / female" />
           </div>
           <button id="btnAdd" type="button">Add</button>
+          <button id="btnCancel" type="button">Cancel</button>
         </div>
         <div id="contents"></div>
       </div>
