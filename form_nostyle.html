@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+</head>
+<body>
+    <div>
+        <form action="..." method="get">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <div>Name: <input type="text" name="name"/></div>
+                <div>Email: <input type="email" name="email"/></div>
+                <div>Age: <input type="number" name="age"/></div>
+                <div>DoB: <input type="date" name="Birthday"/> </div>
+                
+                <div>
+                    <br>
+                    <div>Gender</div>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label><br>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label><br><br>
+                </div>
+            </fieldset>
+            <div>
+                <div>Tell me about you</div>
+                <textarea id="intro"></textarea>
+            </div>
+
+            <div>
+                <div>Fav language</div>
+                <input type="radio" id="html" name="fav_language" value="HTML">
+                <label for="html">HTML</label><br>
+                <input type="radio" id="css" name="fav_language" value="CSS">
+                <label for="css">CSS</label><br>
+                <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+                <label for="javascript">JavaScript</label>
+            </div>
+
+            <div>
+                <br>
+                <div>choose number(s)</div>
+                <input type="checkbox" id="1" name="" value="1">
+                <label for="1"> One</label><br>
+                <input type="checkbox" id="2" name="2" value="2">
+                <label for="2"> Two</label><br>
+                <input type="checkbox" id="3" name="3" value="3">
+                <label for="3"> Three</label><br>
+                <input type="checkbox" id="4" name="4" value="4">
+                <label for="4"> Four</label><br>
+                <input type="checkbox" id="5" name="5" value="5">
+                <label for="5"> Five</label>
+            </div>
+
+            <br>
+            <div>
+                <label for="pet-select">Choose a pet:</label>
+                <select name="pets" id="pet-select">
+                    <option value="">--Please choose an option--</option>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="hamster">Hamster</option>
+                </select>
+            </div>
+
+            <div>
+                <br>
+                <div>browser you are using</div>
+                <input list="browsers">
+                <datalist id="browsers">
+                    <option value="Edge">
+                    <option value="Firefox">
+                    <option value="Chrome">
+                    <option value="Opera">
+                    <option value="Safari">
+                </datalist>
+            </div>
+
+            <br>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </div>
+</body>
+</html>

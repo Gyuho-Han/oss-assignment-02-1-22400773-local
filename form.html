@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .add-btn{
+            background-color: blue;
+            color: white;
+        }
+        .delete-btn{
+            background-color: green;
+            color: white;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const form = document.getElementById('listAddDel');
+            const input = form.querySelector('input[type="text"]');
+            const listContainer = document.getElementById('itemList');
+
+            const addButton = form.querySelector('.add-btn');
+            const deleteButton = form.querySelector('.delete-btn');
+
+            addButton.addEventListener('click', addItem);
+            deleteButton.addEventListener('click', delItems);
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                addItem();
+            });
+
+            function addItem() {
+                const items = input.value.split(',');
+                items.forEach(item => {
+                    const itemText = item.trim();
+                    if (itemText) {
+                        const li = document.createElement('li');
+                        li.textContent = itemText;
+                        listContainer.appendChild(li);
+                    }
+                });
+                input.value = '';
+            }
+
+            function delItems() {
+                listContainer.innerHTML = '';
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Dynamic Web Page</h1>
+    <form id="listAddDel">
+        <input type="text"/>
+        <button type="button" class="add-btn">Add</button>
+        <button type="button" class="delete-btn">Delete</button>
+    </form>
+    <ul id="itemList"></ul>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <style>
+        body{
+            background-color: aliceblue;
+            padding: 5px;
+        }
+
+        div{
+            margin: 10px;
+        }
+
+        input{
+            background-color: beige;
+        }
+
+        .Btn{
+            width: 45%;
+            height: 50px;
+
+            &:hover{
+                background-color: black;
+                color: white;
+            }
+        }
+
+        textarea{
+            width: 80%;
+            height: 70px;
+        }
+        
+        fieldset{
+            border-radius: 30px;
+            margin-bottom: 20px;
+
+            &:hover{
+                background-color: white;
+                color: gray;
+            }
+        }
+
+       .title{
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function askConfirm() {
+            confirm("Really want to reset?");
+        }
+
+        function Thanks(){
+            document.getElementById("textareaTitle").innerHTML = "Tell me about you (Thank you)";
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <form action="..." method="get">
+            <input class="title" value="Form" readonly/>
+            <fieldset>
+                <legend>Personal Information</legend>
+                <div>Name: <input type="text" name="name" required/></div>
+                <div>Email: <input type="email" name="email" required/></div>
+                <div>Age: <input type="number" name="age" required/></div>
+                <div>DoB: <input type="date" name="Birthday" required/> </div>
+                
+                <div>
+                    <br>
+                    <div>Gender</div>
+                    <input type="radio" id="male" name="gender" value="male" required>
+                    <label for="male">Male</label><br>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label><br><br>
+                </div>
+            </fieldset>
+            <div>
+                <div id="textareaTitle">Tell me about you (Write something)</div>
+                <textarea id="intro" onchange="Thanks()" required ></textarea>
+            </div>
+
+            <div>
+                <div>Fav language</div>
+                <input type="radio" id="html" name="fav_language" value="HTML" required>
+                <label for="html">HTML</label><br>
+                <input type="radio" id="css" name="fav_language" value="CSS">
+                <label for="css">CSS</label><br>
+                <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+                <label for="javascript">JavaScript</label>
+            </div>
+
+            <div>
+                <br>
+                <div>choose number(s)</div>
+                <input type="checkbox" id="1" name="" value="1">
+                <label for="1"> One</label><br>
+                <input type="checkbox" id="2" name="2" value="2">
+                <label for="2"> Two</label><br>
+                <input type="checkbox" id="3" name="3" value="3">
+                <label for="3"> Three</label><br>
+                <input type="checkbox" id="4" name="4" value="4">
+                <label for="4"> Four</label><br>
+                <input type="checkbox" id="5" name="5" value="5">
+                <label for="5"> Five</label>
+            </div>
+
+            <br>
+            <div>
+                <label for="pet-select">Choose a pet:</label>
+                <select name="pets" id="pet-select" required>
+                    <option value="">--Please choose an option--</option>
+                    <optgroup label="포유류">
+                        <option value="dog">강아지</option>
+                        <option value="cat">고양이</option>
+                        <option value="hamster">햄스터</option>
+                    </optgroup>
+                    <optgroup label="물고기">
+                        <option value="goldfish">금붕어</option>
+                        <option value="tuna">참치</option>
+                        <option value="salmon">연어</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div>
+                <br>
+                <div>browser you are using</div>
+                <input list="browsers" required>
+                <datalist id="browsers">
+                    <option value="Edge">
+                    <option value="Firefox">
+                    <option value="Chrome">
+                    <option value="Opera">
+                    <option value="Safari">
+                </datalist>
+            </div>
+
+            <br>
+            <input class="Btn" type="submit" value="Submit">
+            <input class="Btn" type="reset" value="Reset" onclick="askConfirm()">
+        </form>
+    </div>
+</body>
+</html>
