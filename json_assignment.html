@@ -3,15 +3,229 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Student Manager</title>
     <style>
-      .content {
-        width: 80%;
-        float: left;
+      :root {
+        --bg: #f3f4f6;
+        --panel: #ffffff;
+        --accent: #2563eb;
+        --accent-light: rgba(37, 99, 235, 0.08);
+        --text: #1f2937;
+        --muted: #6b7280;
+        --danger: #ef4444;
+        --radius: 14px;
       }
 
-      div {
-        padding: 10px;
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: radial-gradient(circle at top, #e0ebff, #ffffff 50%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 32px 12px;
+      }
+
+      .app {
+        width: 100%;
+        max-width: 1200px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 18px;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 18px 20px 10px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .title-wrap h1 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--text);
+      }
+      .title-wrap p {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      #btnStu {
+        background: var(--accent);
+        border: none;
+        color: #fff;
+        padding: 7px 14px;
+        border-radius: 9999px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.15s ease;
+      }
+      #btnStu:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+      }
+
+      .body-wrap {
+        display: grid;
+        grid-template-columns: 340px minmax(0, 1fr);
+        min-height: 420px;
+      }
+
+      /* form panel */
+      .form-panel {
+        border-right: 1px solid #e5e7eb;
+        padding: 18px 18px 20px;
+        background: #f8fafc;
+      }
+
+      .form-panel h2 {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+        color: #0f172a;
+      }
+
+      .input-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 10px;
+      }
+
+      label {
+        font-size: 0.72rem;
+        color: #0f172a;
+        font-weight: 500;
+      }
+
+      input[type="text"] {
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        padding: 6px 9px;
+        font-size: 0.8rem;
+        transition: 0.12s ease;
+        outline: none;
+        background: #fff;
+      }
+
+      input[type="text"]:focus {
+        border-color: rgba(37, 99, 235, 0.5);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+      }
+
+      #btnAdd {
+        width: 100%;
+        background: #fff;
+        border: 1px solid rgba(37, 99, 235, 0.4);
+        border-radius: 10px;
+        padding: 7px 0;
+        font-weight: 600;
+        color: #1d4ed8;
+        cursor: pointer;
+        margin-top: 6px;
+        transition: 0.12s ease;
+      }
+      #btnAdd:hover {
+        background: rgba(37, 99, 235, 0.08);
+      }
+
+      /* list panel */
+      #contents {
+        padding: 18px 18px 22px;
+        background: #ffffff;
+        overflow-y: auto;
+        max-height: none;
+        min-height: 420px;
+      }
+
+      #contents ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      #contents li {
+        background: linear-gradient(90deg, #ffffff 0%, #f9fafb 100%);
+        border: 1px solid #edf2ff;
+        border-radius: 12px;
+        padding: 9px 12px 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        align-items: center;
+      }
+
+      #contents li b {
+        font-size: 0.88rem;
+        margin-right: 3px;
+      }
+
+      #contents li small {
+        color: var(--muted);
+      }
+
+      #contents button {
+        border: none;
+        background: rgba(37, 99, 235, 0.05);
+        padding: 3px 10px 4px;
+        border-radius: 999px;
+        font-size: 0.68rem;
+        color: #1d4ed8;
+        cursor: pointer;
+        transition: 0.12s ease;
+        margin-top: 4px;
+      }
+
+      #contents button:hover {
+        background: rgba(37, 99, 235, 0.18);
+      }
+
+      #contents button:last-child {
+        background: rgba(239, 68, 68, 0.05);
+        color: #b91c1c;
+      }
+      #contents button:last-child:hover {
+        background: rgba(239, 68, 68, 0.12);
+      }
+
+      /* responsive */
+      @media (max-width: 900px) {
+        .body-wrap {
+          grid-template-columns: 1fr;
+        }
+        .form-panel {
+          border-right: none;
+          border-bottom: 1px solid #e5e7eb;
+        }
+      }
+
+      @media (max-width: 560px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        .app {
+          border-radius: 14px;
+        }
+        .form-panel,
+        #contents {
+          padding: 14px 14px 18px;
+        }
       }
     </style>
     <script>
@@ -27,7 +241,7 @@
         const xhr = new XMLHttpRequest();
 
         xhr.onload = () => {
-          if (xhr.status === 200) {
+          if (xhr.status === 201 || xhr.status === 200) {
             const res = JSON.parse(xhr.response);
             contents.innerHTML = makeList(res);
           } else {
@@ -37,7 +251,7 @@
 
         xhr.open(
           "GET",
-          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students"
+          "https://690493406b8dabde496444eb.mockapi.io/my_data"
         );
         xhr.send();
       }
@@ -51,14 +265,19 @@
           const phone = stu.phone ? stu.phone : "-";
           const sex = stu.sex ? stu.sex : "-";
 
-          str += `<li>
-              <b>${stu.name}</b> (${stu.age}) 
-              | email: ${email} 
-              | phone: ${phone} 
-              | sex: ${sex}
-            </li>`;
-          str += `<button onclick="updateData('${stu.id}')">modify</button> `;
-          str += `<button onclick="deleteData('${stu.id}')">delete</button>`;
+          str += `
+            <li>
+              <div style="flex:1 1 200px;">
+                <b>${stu.name}</b> (${stu.age}) 
+                <small>• ${sex}</small><br/>
+                <small>${email} / ${phone}</small>
+              </div>
+              <div>
+                <button onclick="updateData('${stu.id}')">modify</button>
+                <button onclick="deleteData('${stu.id}')">delete</button>
+              </div>
+            </li>
+          `;
         }
         str += "</ul>";
         return str;
@@ -74,18 +293,12 @@
         const xhr = new XMLHttpRequest();
 
         xhr.onload = () => {
-          if (xhr.status === 200) {
+          if (xhr.status === 201 || xhr.status === 200) {
             name.value = "";
             age.value = "";
             email.value = "";
             phone.value = "";
             sex.value = "";
-            try {
-              const res = JSON.parse(xhr.response);
-              console.log(res);
-            } catch (e) {
-              console.log("no json response");
-            }
             getStudents();
           } else {
             console.log(xhr.status, xhr.statusText);
@@ -94,7 +307,7 @@
 
         xhr.open(
           "POST",
-          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students"
+          "https://690493406b8dabde496444eb.mockapi.io/my_data"
         );
         xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
 
@@ -103,7 +316,7 @@
           age: age.value,
           email: email.value,
           phone: phone.value,
-          sex: sex.value,
+          sex: sex.value
         };
 
         xhr.send(JSON.stringify(data));
@@ -113,29 +326,21 @@
         const xhr = new XMLHttpRequest();
         xhr.open(
           "PUT",
-          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students/" +
-            id
+          "https://690493406b8dabde496444eb.mockapi.io/my_data/" + id
         );
         xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
 
-        // 여기서는 샘플 값으로 고정
         const data = {
           name: "Sally",
           age: "10",
           email: "sally@gmail.com",
           phone: "01012341234",
-          sex: "female",
+          sex: "female"
         };
         xhr.send(JSON.stringify(data));
 
         xhr.onload = () => {
           if (xhr.status === 200) {
-            try {
-              const res = JSON.parse(xhr.response);
-              console.log(res);
-            } catch (e) {
-              console.log("no json response");
-            }
             getStudents();
           } else {
             console.log(xhr.status, xhr.statusText);
@@ -147,18 +352,11 @@
         const xhr = new XMLHttpRequest();
         xhr.open(
           "DELETE",
-          "https://my-json-server.typicode.com/gyuho-han/oss-assignment-02-1-22400773-local/students/" +
-            id
+          "https://690493406b8dabde496444eb.mockapi.io/my_data/" + id
         );
 
         xhr.onload = () => {
           if (xhr.status === 200) {
-            try {
-              const res = JSON.parse(xhr.response);
-              console.log(res);
-            } catch (e) {
-              console.log("no json response");
-            }
             getStudents();
           } else {
             console.log(xhr.status, xhr.statusText);
@@ -170,18 +368,40 @@
   </head>
 
   <body>
-    <button id="btnStu">Bring student data</button>
-    <div>
-      <input type="text" id="name" size="5" placeholder="name" />
-      <input type="text" id="age" size="5" placeholder="age" />
-      <input type="text" id="email" size="8" placeholder="email" />
-      <input type="text" id="phone" size="8" placeholder="phone" />
-      <input type="text" id="sex" size="5" placeholder="male/female" />
-      <button id="btnAdd" type="button">Add student data</button>
+    <div class="app">
+      <header>
+        <div class="title-wrap">
+          <h1>📚 Student Manager</h1>
+        </div>
+        <button id="btnStu">Bring student data</button>
+      </header>
+      <div class="body-wrap">
+        <div class="form-panel">
+          <h2>Add New Student</h2>
+          <div class="input-row">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="name" />
+          </div>
+          <div class="input-row">
+            <label for="age">Age</label>
+            <input type="text" id="age" placeholder="age" />
+          </div>
+          <div class="input-row">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="email" />
+          </div>
+          <div class="input-row">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" placeholder="01000000000" />
+          </div>
+          <div class="input-row">
+            <label for="sex">Sex</label>
+            <input type="text" id="sex" placeholder="male / female" />
+          </div>
+          <button id="btnAdd" type="button">Add</button>
+        </div>
+        <div id="contents"></div>
+      </div>
     </div>
-    <div
-      id="contents"
-      style="height: 200px; background-color: lightgoldenrodyellow"
-    ></div>
   </body>
 </html>
